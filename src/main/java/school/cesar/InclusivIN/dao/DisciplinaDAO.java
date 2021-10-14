@@ -5,5 +5,4 @@ import school.cesar.InclusivIN.entities.Disciplina;
 
 public interface DisciplinaDAO extends JpaRepository<Disciplina, Long> {
 
-
 }
