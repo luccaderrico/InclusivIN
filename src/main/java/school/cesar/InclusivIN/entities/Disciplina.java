@@ -24,7 +24,7 @@ public class Disciplina implements Serializable {
     private String professor;
 
     @Column (name = "CARGA HORÁRIA", nullable = false)
-    private String carga_horaria;
+    private String cargaHoraria;
 
     @OneToMany (mappedBy = "curso", targetEntity = Curso,fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     private String nomeDisciplina;
