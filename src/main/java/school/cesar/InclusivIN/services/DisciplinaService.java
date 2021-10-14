@@ -8,6 +8,8 @@ import school.cesar.InclusivIN.dao.DisciplinaDAO;
 import school.cesar.InclusivIN.entities.Curso;
 import school.cesar.InclusivIN.entities.Disciplina;
 
+import java.util.List;
+
 @Service
 public class DisciplinaService {
 
@@ -19,5 +21,7 @@ public class DisciplinaService {
 
     public void change(Disciplina disciplina, String novaDisciplina){
         disciplina.setNomeDisciplina(novaDisciplina);
+    }
+    public List<Disciplina> findAll(){return disciplinaDAO.findAll();
     }
 }

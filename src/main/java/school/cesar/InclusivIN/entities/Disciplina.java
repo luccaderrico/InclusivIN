@@ -6,8 +6,8 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.List;
 
+@Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -20,14 +20,17 @@ public class Disciplina implements Serializable {
     @Column (name = "ID", nullable = false)
     private Long id;
 
+    @Column (name = "NOME DISCIPLINA", nullable = false)
+    private String nomeDisciplina;
+
     @Column (name = "PROFESSOR", nullable = false)
     private String professor;
 
     @Column (name = "CARGA HORÁRIA", nullable = false)
     private String cargaHoraria;
 
-    @OneToMany (mappedBy = "curso", targetEntity = Curso,fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-    private String nomeDisciplina;
-
+    /*@ManyToOne
+    @JoinColumn (name = "CURSO_ID")
+    private Curso curso;*/
 
 }
