@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Data
 @Entity
@@ -21,5 +22,9 @@ public class Curso implements Serializable {
 
     @Column(name = "NOME", nullable = false, unique = true)
     private String nomeCurso;
+
+   /*@OneToMany(mappedBy="Disciplina")
+    @JoinColumn(name = "DISCIPLINA_ID")
+    private List<Disciplina> disciplinas;*/
 
 }

@@ -1,9 +1,13 @@
 package school.cesar.InclusivIN;
 
-import school.cesar.InclusivIN.dao.CursoDAO;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+@SpringBootApplication
 public class InclusivinMain {
 
     public static void main(String[] args) {
+        SpringApplication.run(InclusivinMain.class, args);
     }
+
 }
