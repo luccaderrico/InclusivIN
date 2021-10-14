@@ -5,9 +5,9 @@ import java.util.List;
 
 public class CursoUtil {
 
-    public static Curso cursoExiste(String nome, List<Curso> list){
+    public static Curso cursoExiste(String nomeCurso, List<Curso> list){
         for (Curso curso:list){
-            if (curso.getNomeCurso().equals(nome)){
+            if (curso.getNomeCurso().equals(nomeCurso)){
                 return curso;
             }
         }

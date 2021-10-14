@@ -7,6 +7,7 @@ import school.cesar.InclusivIN.entities.Curso;
 import school.cesar.InclusivIN.exceptions.CursoInvalidoException;
 import school.cesar.InclusivIN.util.CursoUtil;
 import java.util.List;
+import java.util.Scanner;
 
 @Service
 public class CursoService {
@@ -14,21 +15,12 @@ public class CursoService {
     @Autowired
     private CursoDAO cursoDAO;
 
-    public void save(String cursoNome){
-        Curso curso = new Curso();
-        curso.setNomeCurso(cursoNome);
+    public void save(Curso curso){
         cursoDAO.save(curso);
     }
 
-    public void change(String nome, String novoNome){
-        Curso cursoSelecionado;
-        try {
-            cursoSelecionado = CursoUtil.cursoExiste(nome, cursoDAO.findAll());
-            cursoSelecionado.setNomeCurso(novoNome);
-
-        } catch (NullPointerException e){
-            throw new CursoInvalidoException("Curso não encontrado!");
-        }
+    public void change(Curso curso, String novoNome){
+        curso.setNomeCurso(novoNome);
     }
 
     public List<Curso> findAll(){
@@ -36,15 +28,12 @@ public class CursoService {
     }
 
     public Curso find(String nomeCurso){
-        for (Curso curso:cursoDAO.findAll()){
-            if (curso.getNomeCurso().equals(nomeCurso)){
-                return curso;
-            }
-        }
-        return null;
+        Curso cursoSelecionado;
+        cursoSelecionado = CursoUtil.cursoExiste(nomeCurso, cursoDAO.findAll());
+        return cursoSelecionado;
     }
 
-    public void remove(Curso curso){
+    public void delete(Curso curso){
         cursoDAO.delete(curso);
     }
 }

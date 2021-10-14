@@ -3,10 +3,11 @@ package school.cesar.InclusivIN.entities;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.List;
+
 
 @Data
 @Entity
@@ -27,4 +28,11 @@ public class Curso implements Serializable {
     @JoinColumn(name = "DISCIPLINA_ID")
     private List<Disciplina> disciplinas;*/
 
+
+    public String toString(){
+        return  "{" +
+                "\nID: " + getId() +
+                "\nNOME DO CURSO: " + getNomeCurso() +
+                "\n}";
+    }
 }
