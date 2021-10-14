@@ -33,6 +33,7 @@ public class CursoController {
         Curso curso = cursoService.find(nomeCurso);
         if (curso != null) {
             cursoService.change(curso, novoNome);
+            cursoService.save(curso);
             return ResponseEntity.ok().body("Curso Alterado com sucesso!\n" + curso + "\nNovo URI: http://127.0.0.1:8081/curso/find/" + novoNome);
         }
         return ResponseEntity.ok().body("Curso não encontrado!");
