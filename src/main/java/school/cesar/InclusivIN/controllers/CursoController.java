@@ -4,13 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import school.cesar.InclusivIN.entities.Curso;
-import school.cesar.InclusivIN.exceptions.CursoInvalidoException;
 import school.cesar.InclusivIN.services.CursoService;
 
-import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.List;
 
 @RestController
@@ -21,22 +18,15 @@ public class CursoController {
     private CursoService cursoService;
 
     @PostMapping("/add")
-    public String cadastrar(@RequestBody String cursoNome){
-        Curso curso = new Curso();
-        curso.setNomeCurso(cursoNome);
+    public ResponseEntity<Void> cadastrar(@RequestBody Curso curso) throws URISyntaxException {
         cursoService.save(curso);
-        return "Curso Adicionado\nURI: http://127.0.0.1:8081/curso/find/" + cursoNome;
+        return ResponseEntity.created(new URI("http://127.0.0.1:8081/curso/find/" + curso.getNome())).build();
     }
 
-    @PatchMapping("/change/{nomeCurso}")
-    public ResponseEntity<String> alterar(@RequestBody String novoNome, @PathVariable String nomeCurso){
-        Curso curso = cursoService.find(nomeCurso);
-        if (curso != null) {
-            cursoService.change(curso, novoNome);
-            cursoService.save(curso);
-            return ResponseEntity.ok().body("Curso Alterado com sucesso!\n" + curso + "\nNovo URI: http://127.0.0.1:8081/curso/find/" + novoNome);
-        }
-        return ResponseEntity.ok().body("Curso não encontrado!");
+    @PatchMapping("/change")
+    public ResponseEntity<Void> alterar(@RequestBody Curso curso) throws URISyntaxException {
+        cursoService.save(curso);
+        return ResponseEntity.created(new URI("http://127.0.0.1:8081/curso/find/" + curso.getNome())).build();
     }
 
     @GetMapping("/find/all")
@@ -44,22 +34,20 @@ public class CursoController {
         return ResponseEntity.ok().body(cursoService.findAll());
     }
 
-    @GetMapping("/find/{nomeCurso}")
-    public ResponseEntity<String> consultar(@PathVariable("nomeCurso") String nomeCurso){
-        Curso curso = cursoService.find(nomeCurso);
+    @GetMapping("/find/{curso}")
+    public ResponseEntity<Curso> consultar(@PathVariable("curso") Curso curso){
         if (curso != null) {
-            return ResponseEntity.ok().body(curso.toString());
+            return ResponseEntity.ok().body(cursoService.find(curso));
         }
-        return ResponseEntity.ok().body("Curso não encontrado!");
+        return ResponseEntity.notFound().build();
     }
 
-    @DeleteMapping("/delete/{nomeCurso}")
-    public ResponseEntity<String> delete(@PathVariable("nomeCurso") String nomeCurso){
-        Curso curso = cursoService.find(nomeCurso);
+    @DeleteMapping("/delete/{curso}")
+    public ResponseEntity<Void> delete(@PathVariable("curso") Curso curso){
         if (curso != null) {
             cursoService.delete(curso);
-            return ResponseEntity.ok().body("Curso deletado");
+            return ResponseEntity.noContent().build();
         }
-        return ResponseEntity.ok().body("Curso não encontrado!");
+        return ResponseEntity.notFound().build();
     }
 }

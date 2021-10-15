@@ -1,4 +1,4 @@
 package school.cesar.InclusivIN.dao;
 
-public class DisciplinaDAO {
+public interface DisciplinaDAO {
 }

@@ -4,10 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import school.cesar.InclusivIN.dao.CursoDAO;
 import school.cesar.InclusivIN.entities.Curso;
-import school.cesar.InclusivIN.exceptions.CursoInvalidoException;
 import school.cesar.InclusivIN.util.CursoUtil;
 import java.util.List;
-import java.util.Scanner;
+import java.util.Optional;
 
 @Service
 public class CursoService {
@@ -19,18 +18,12 @@ public class CursoService {
         cursoDAO.save(curso);
     }
 
-    public void change(Curso curso, String novoNome){
-        curso.setNomeCurso(novoNome);
-    }
-
     public List<Curso> findAll(){
         return cursoDAO.findAll();
     }
 
-    public Curso find(String nomeCurso){
-        Curso cursoSelecionado;
-        cursoSelecionado = CursoUtil.cursoExiste(nomeCurso, cursoDAO.findAll());
-        return cursoSelecionado;
+    public Curso find(Curso curso){
+       return cursoDAO.findById(curso.getId()).get();
     }
 
     public void delete(Curso curso){
